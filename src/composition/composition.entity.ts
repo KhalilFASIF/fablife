@@ -15,11 +15,11 @@ export class Composition {
   id: number;
 
   @ManyToOne(() => Ingredient, { onDelete: 'RESTRICT' })
-  @JoinColumn({ name: 'ingredientId' })
+  @JoinColumn({ name: 'ingredient_id' })
   ingredient_id: number;
 
   @ManyToOne(() => Recipe, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'recipeId' })
+  @JoinColumn({ name: 'recipe_id' })
   recipe_id: number;
 
   @Column({ type: 'int' })
