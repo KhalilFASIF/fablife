@@ -50,7 +50,7 @@ id: number
 body: {
   id: number,
   name: string,
-  type: 'breakfast' | 'launch', 'dinner',
+  type: 'breakfast' | 'launch' | 'dinner',
   ingredients: {
     id: number,
     quantity: number
