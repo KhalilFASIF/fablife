@@ -1,25 +1,13 @@
-import {
-  Entity,
-  Column,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  JoinTable,
-} from 'typeorm';
-
-import { Ingredient } from 'src/ingredient/ingredient.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Recipe {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column({ type: 'text' })
   name: string;
 
   @Column({ type: 'enum', enum: ['breakfast', 'lunch', 'dinner'] })
   type: string;
-
-  @ManyToMany(() => Ingredient, { onDelete: 'CASCADE' })
-  @JoinTable()
-  ingredients: Ingredient[];
 }

@@ -6,37 +6,42 @@ import {
   Param,
   Post,
   Put,
+  Res,
 } from '@nestjs/common';
 
 import { RecipeService } from './recipe.service';
-import { Recipe } from './recipe.entity';
 
 @Controller('recipes')
 export class RecipeController {
   constructor(private recipesService: RecipeService) {}
 
-  @Post()
-  createIngredient(@Body() recipe: Recipe) {
-    return this.recipesService.createRecipe(recipe);
-  }
-
-  @Delete(':id')
-  deleteIngredient(@Param() params: any) {
-    return this.recipesService.deleteRecipe(params.id);
-  }
-
   @Get()
-  getIngredients() {
-    return this.recipesService.getRecipes();
+  async getRecipes(@Res() res: any) {
+    const response = await this.recipesService.getRecipes();
+    res.status(response.statusCode).json(response.message);
   }
 
   @Get(':id')
-  getIngredient(@Param() params: any) {
-    return this.recipesService.getRecipe(params.id);
+  async getRecipe(@Param() params: any, @Res() res: any) {
+    const response = await this.recipesService.getRecipe(params.id);
+    res.status(response.statusCode).json(response.message);
+  }
+
+  @Post()
+  async createRecipe(@Body() body: any, @Res() res: any) {
+    const response = await this.recipesService.createRecipe(body);
+    res.status(response.statusCode).json(response.message);
   }
 
   @Put()
-  updateIngredient(@Body() recipe: Recipe) {
-    return this.recipesService.updateRecipe(recipe);
+  async updateRecipe(@Body() body: any, @Res() res: any) {
+    const response = await this.recipesService.updateRecipe(body);
+    res.status(response.statusCode).json(response.message);
+  }
+
+  @Delete(':id')
+  async deleteRecipe(@Param() params: any, @Res() res: any) {
+    const response = await this.recipesService.deleteRecipe(params.id);
+    res.status(response.statusCode).json(response.message);
   }
 }

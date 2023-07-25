@@ -1,13 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Ingredient {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column({ type: 'text', unique: true })
   name: string;
 
-  @Column()
+  @Column({ type: 'text' })
   aisle: string;
 }

@@ -6,37 +6,42 @@ import {
   Param,
   Post,
   Put,
+  Res,
 } from '@nestjs/common';
 
 import { IngredientService } from './ingredient.service';
-import { Ingredient } from './ingredient.entity';
 
 @Controller('ingredients')
 export class IngredientsController {
   constructor(private ingredientService: IngredientService) {}
 
-  @Post()
-  createIngredient(@Body() ingredient: Ingredient) {
-    return this.ingredientService.createIngredient(ingredient);
-  }
-
-  @Delete(':id')
-  deleteIngredient(@Param() params: any) {
-    return this.ingredientService.deleteIngredient(params.id);
-  }
-
   @Get()
-  getIngredients() {
-    return this.ingredientService.getIngredients();
+  async getIngredients(@Res() res: any) {
+    const response = await this.ingredientService.getIngredients();
+    res.status(response.statusCode).json(response.message);
   }
 
   @Get(':id')
-  getIngredient(@Param() params: any) {
-    return this.ingredientService.getIngredient(params.id);
+  async getIngredient(@Param() params: any, @Res() res: any) {
+    const response = await this.ingredientService.getIngredient(params.id);
+    res.status(response.statusCode).json(response.message);
+  }
+
+  @Post()
+  async createIngredient(@Body() body: any, @Res() res: any) {
+    const response = await this.ingredientService.createIngredient(body);
+    res.status(response.statusCode).json(response.message);
   }
 
   @Put()
-  updateIngredient(@Body() ingredient: Ingredient) {
-    return this.ingredientService.updateIngredient(ingredient);
+  async updateIngredient(@Body() body: any, @Res() res: any) {
+    const response = await this.ingredientService.updateIngredient(body);
+    res.status(response.statusCode).json(response.message);
+  }
+
+  @Delete(':id')
+  async deleteIngredient(@Param() params: any, @Res() res: any) {
+    const response = await this.ingredientService.deleteIngredient(params.id);
+    res.status(response.statusCode).json(response.message);
   }
 }

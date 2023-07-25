@@ -3,6 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Composition } from './composition/composition.entity';
+import { CompositionController } from './composition/composition.controller';
+import { CompositionService } from './composition/composition.service';
 import { Ingredient } from './ingredient/ingredient.entity';
 import { IngredientsController } from './ingredient/ingredient.controller';
 import { IngredientService } from './ingredient/ingredient.service';
@@ -19,12 +22,17 @@ import { RecipeService } from './recipe/recipe.service';
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      entities: [Ingredient, Recipe],
+      entities: [Composition, Ingredient, Recipe],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Ingredient, Recipe]),
+    TypeOrmModule.forFeature([Composition, Ingredient, Recipe]),
   ],
-  controllers: [AppController, IngredientsController, RecipeController],
-  providers: [AppService, IngredientService, RecipeService],
+  controllers: [
+    AppController,
+    CompositionController,
+    IngredientsController,
+    RecipeController,
+  ],
+  providers: [AppService, CompositionService, IngredientService, RecipeService],
 })
 export class AppModule {}
